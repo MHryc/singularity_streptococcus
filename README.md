@@ -1,2 +1,9 @@
 # singularity_streptococcus
-Showcase workflow for institute seminar
+A short workflow to showcase the usage of singularity containers for bioinformatic analysis of sequencing data
+
+## Running
+```
+git clone https://github.com/MHryc/singularity_streptococcus.git
+cd singularity_streptococcus/ && chmod +x workflow.sh
+./workflow.sh
+```
