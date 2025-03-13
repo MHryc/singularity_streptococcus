@@ -10,6 +10,8 @@
 #export WORK_DIR="4_MHryc/containers/container_test"
 export WORK_DIR=$(readlink -f .)
 
+chmod +x scripts/*
+
 mkdir -p results/fastqc_out results/fastp_out
 
 # Pobranie danych WGS Streptococcus pyogenes
