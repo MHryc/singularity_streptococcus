@@ -1,5 +1,11 @@
 # singularity_streptococcus
-A short workflow to showcase the usage of singularity containers for bioinformatic analysis of sequencing data
+A short workflow to showcase the usage of singularity containers for bioinformatic analysis of sequencing dataA
+
+## *Analysis* steps
+1. Download reads from SRA with sra-tools
+2. QC with FastQC
+3. Read trimming with fastp
+4. Post trimming FastQC
 
 ## Running
 ```
