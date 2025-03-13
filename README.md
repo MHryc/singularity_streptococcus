@@ -11,6 +11,8 @@ A short workflow to showcase the usage of singularity containers for bioinformat
 ```
 git clone https://github.com/MHryc/singularity_streptococcus.git
 cd singularity_streptococcus/ && chmod +x workflow.sh
-srun --pty /bin/bash
 ./workflow.sh
 ```
+
+## Results
+Html files created by FastQC and fastp will be stored in `/results` directory
