@@ -11,7 +11,7 @@ mkdir -p results/fastqc_out results/fastp_out
 export WORK_DIR=$(readlink -f .)
 export RUN_ID="SRR32524951"
 NCBI_REF="streptococus_ncbi.txt"
-wget -nc -i $NCBI_REF -P ncbi_files
+wget -nc -i resources/$NCBI_REF -P ncbi_files
 
 SRA_TOOLS="https://depot.galaxyproject.org/singularity/sra-tools:3.2.0--h4304569_0"
 singularity exec \
