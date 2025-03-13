@@ -8,3 +8,5 @@ fastp -i ${RUN_ID}_1.fastq -o ${RUN_ID}_1.fastp.fastq \
 	--cut_tail_window_size 1 --cut_tail_mean_quality 20 \
 	--adapter_fasta /mnt/proj/resources/adapter.fa \
 	--html 'fastp_report.html' -R 'singularity_fastp' --thread 1
+
+mv /mnt/proj/$RUN_ID/fastp_report.html /mnt/proj/results/fastp_out
