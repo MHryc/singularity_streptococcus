@@ -30,4 +30,4 @@ singularity exec \
 
 singularity exec \
 	--bind "$WORK_DIR:/mnt/proj" \
-	$FASTP bash -c /mnt/proj/scripts/fastqc_post_fastp.sh
+	$FASTQC bash -c /mnt/proj/scripts/fastqc_post_fastp.sh
