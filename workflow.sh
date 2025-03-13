@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# Utworzenie katalogu w partycją o większym rozmiarze
-#mkdir ~/pl0217-01/project_data/containers_hryc
-#ln -s ~/pl0217-01/project_data/containers_hryc/ .singularity/
-
 chmod +x scripts/*
-
 mkdir -p results/fastqc_out results/fastp_out
 
 export WORK_DIR=$(readlink -f .)
