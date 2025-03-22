@@ -1,0 +1,52 @@
+Bootstrap: docker
+From: ubuntu:20.04
+
+%setup
+	mkdir -p ${SINGULARITY_ROOTFS}/opt/simseq
+
+	cp simseq.py ${SINGULARITY_ROOTFS}/opt/simseq
+
+%post
+	apt-get -y update
+	apt-get -y install python3 fortune cowsay lolcat
+
+	echo '#!/bin/bash' >> simseq
+	echo 'python3 /opt/simseq/simseq.py $1 $2 $3' >> simseq
+	chmod +x simseq
+
+	ln -s $(pwd)/simseq /usr/local/bin
+
+%environment
+	export TEST=1
+	export LC_ALL=C
+	export PATH=/usr/games:$PATH
+	export PATH=/opt:$PATH
+
+%runscript
+	fortune | cowsay | lolcat
+
+%startscript
+	echo "Welcome in SimSeq container." | cowsay | lolcat
+
+%test
+	echo "This test does nothing! [test]"
+
+%labels
+	Author "M. Hryc"
+	Description "SimSeq.py container"
+
+%files
+
+%help
+Przykładowy kontener Singularity. Zawiera fortune, cowsay, lolcat i skrypt
+simseq generujący chromosomy w oparciu o HMM.
+
+Użycie simseq:
+  simseq [długość sekwencji] [liczba sekwencji]
+
+Przykładowe skrypty:
+  fortune | cowsay | lolcat	Wypisuje na ekranie tęczowy obrazek krowy z
+				losowym cytatem
+
+  simseq 100 10			Generuje 10 chromosomów długości 100 nt w
+  				formacie FASTA
