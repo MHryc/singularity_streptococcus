@@ -24,3 +24,5 @@ singularity exec \
 	$FASTP bash -c /mnt/proj/scripts/fastp.sh
 
 singularity exec instance://fastqc bash -c /mnt/proj/scripts/fastqc_post_fastp.sh
+
+singularity instance stop fastqc
