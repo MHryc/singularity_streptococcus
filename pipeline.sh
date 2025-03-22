@@ -14,15 +14,13 @@ singularity exec \
 	$SRA_TOOLS bash -c /mnt/proj/scripts/sratools.sh
 
 FASTQC="https://depot.galaxyproject.org/singularity/fastqc:0.12.1--hdfd78af_0"
-singularity exec \
-	--bind "$WORK_DIR:/mnt/proj" \
-	$FASTQC bash -c /mnt/proj/scripts/fastqc.sh
+singularity instance start --bind "$WORK_DIR:/mnt/proj" $FASTQC fastqc
+
+singularity exec instance://fastqc bash -c /mnt/proj/scripts/fastqc.sh
 
 FASTP="https://depot.galaxyproject.org/singularity/fastp:0.24.0--heae3180_1"
 singularity exec \
 	--bind "$WORK_DIR:/mnt/proj" \
 	$FASTP bash -c /mnt/proj/scripts/fastp.sh
 
-singularity exec \
-	--bind "$WORK_DIR:/mnt/proj" \
-	$FASTQC bash -c /mnt/proj/scripts/fastqc_post_fastp.sh
+singularity exec instance://fastqc bash -c /mnt/proj/scripts/fastqc_post_fastp.sh
