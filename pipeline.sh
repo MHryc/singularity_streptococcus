@@ -26,3 +26,15 @@ singularity exec \
 singularity exec instance://fastqc bash -c /mnt/proj/scripts/fastqc_post_fastp.sh
 
 singularity instance stop fastqc
+
+BWA="https://depot.galaxyproject.org/singularity/bwa-mem2:2.2.1--he70b90d_6"
+singularity exec \
+	--bind "$WORK_DIR:/mnt/proj" \
+	$BWA bash -c /mnt/proj/scripts/bwa.sh
+
+rclone move ncbi_files/mapped.sam results/ --progress --multi-thread-streams=2
+
+singularity pull samtools.sif docker://staphb/samtools
+singularity exec \
+	--bind "$WORK_DIR:/mnt/proj" \
+	samtools.sif bash -c /mnt/proj/scripts/samtools.sh
