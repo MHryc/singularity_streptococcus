@@ -52,4 +52,4 @@ singularity exec \
 	--bind "$WORK_DIR:/mnt/proj" \
 	samtools.sif bash -c /mnt/proj/scripts/samtools.sh
 
-inform "Wykresy, zmapowane odczyty i statystyki umieszczono w katalogu results"
+inform "Wykresy, zmapowane odczyty i statystyki umieszczono w katalogu results/"
