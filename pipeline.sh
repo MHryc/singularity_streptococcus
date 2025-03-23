@@ -5,7 +5,6 @@ inform() {
         echo = $1
         echo ========================================
 }
-
 inform "Przygotowanie środowiska"
 chmod +x scripts/*
 mkdir -p results/fastqc_out results/fastp_out
