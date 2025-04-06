@@ -1,8 +1,6 @@
 #!/usr/bin/env nextflow
 
 process GetGenome {
-	label 'sratools'
-
 	input:
 		path wget_infile
 
@@ -37,7 +35,7 @@ process FastQC2 {
 	publishDir params.out, mode: 'link'
 
 	input:
-		tuple val(sra_id), path(reads_fastq)
+		path(reads_fastq)
 
 	output:
 		path "*.html"
@@ -56,12 +54,12 @@ process Fastp {
 		path adapter_path
 
 	output:
-		path "${sra_id}_?.fastq.gz"
+		path "${sra_id}_?.fastp.fastq.gz"
 
 	script:
 	"""
-	fastp -i ${reads_fastq[0]} -o ${sra_id}_1.fastq.gz -f 10 \
-	-I ${reads_fastq[1]} -O ${sra_id}_2.fastq.gz -F 10 \
+	fastp -i ${reads_fastq[0]} -o ${sra_id}_1.fastp.fastq.gz -f 10 \
+	-I ${reads_fastq[1]} -O ${sra_id}_2.fastp.fastq.gz -F 10 \
 	-q 30 -u 40 -l 35 --trim_poly_x -z 4 --cut_tail \
 	--cut_tail_window_size 1 --cut_tail_mean_quality 20 \
 	--adapter_fasta ${adapter_path} \
@@ -115,16 +113,26 @@ params.adapter_path = './'
 params.ncbi_genome = ''
 params.out = 'results/nextflow'
 
+workflow run_QC {
+	take:
+	read_ch
+
+	main:
+	FastQC(read_ch)
+	Fastp(read_ch, params.adapter_path)
+	
+	emit:
+	trimmed_reads = Fastp.out
+}
+
 workflow {
 	sra_ch = Channel.fromSRA(params.sracode, apiKey: params.api_key)
-		.view()
 
-	FastQC(sra_ch)
-	Fastp(sra_ch, params.adapter_path)
-	FastQC2(Fastp.out)
+	run_QC(sra_ch)
+		| FastQC2
 
 	GetGenome(params.ncbi_genome)
 
-	BWA(GetGenome.out, Fastp.out)
-	GetStats(BWA.out)
+	BWA(GetGenome.out, run_QC.out)
+	| GetStats
 }
