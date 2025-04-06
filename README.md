@@ -7,9 +7,7 @@ A short pipeline to showcase use of singularity containers.
 3. Read trimming with fastp
 4. Post trimming FastQC
 
-## Running
-
-### Bash version
+## Bash version
 
 ```
 git clone https://github.com/MHryc/singularity_streptococcus.git
@@ -20,7 +18,7 @@ cd singularity_streptococcus/ && chmod +x pipeline.sh
 ### Results
 Html files created by FastQC and fastp will be stored in `/results` directory
 
-### Nextflow version
+## Nextflow version
 
 Modify the `run.sh` script:
 
@@ -43,9 +41,9 @@ nextflow run pipeline.nf -resume \
 
 and `./run.sh`
 
-#### Workflow structure (DAGs)
+### Workflow structure (DAGs)
 
-##### run_QC DAG
+#### run_QC DAG
 
 ```mermaid
 flowchart TB
@@ -64,7 +62,7 @@ flowchart TB
     end
 ```
 
-##### main workflow DAG
+#### main workflow DAG
 
 ```mermaid
 flowchart TB
