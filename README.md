@@ -2,10 +2,14 @@
 A short pipeline to showcase use of singularity containers.
 
 ## *Analysis* steps
-1. Download WGS reads from SRA with sra-tools
+1. Download WGS reads from SRA with sra-tools and ref. genome from NCBI with
+   wget
 2. QC with FastQC
 3. Read trimming with fastp
 4. Post trimming FastQC
+5. Allign trimmed reads to ref. genome with BWA
+6. Save mapping statistics with SamTools
+
 
 ## Bash version
 
@@ -16,7 +20,9 @@ cd singularity_streptococcus/ && chmod +x pipeline.sh
 ```
 
 ### Results
-Html files created by FastQC and fastp will be stored in `/results` directory
+
+FastQC and fastp reports, mapping statistics and mapped reads will be saved in
+`results/` directory.
 
 ## Nextflow version
 
@@ -25,7 +31,7 @@ Modify the `run.sh` script:
 ```
 nextflow run pipeline.nf -resume \
 	--sracode 'SRR32524951' \
-	--api_key 'f4b36fd5a919b6f555c90a4b40078dcce408' \
+	--api_key '...' \
 	--adapter_path "$(pwd)/resources/adapter.fa" \
 	--ncbi_genome "$(pwd)/resources/streptococus_ncbi.txt" \
 	--out 'results/nextflow'

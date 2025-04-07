@@ -108,7 +108,7 @@ process GetStats {
  */
 
 params.sracode = 'SRR32524951'
-params.api_key = 'f4b36fd5a919b6f555c90a4b40078dcce408'
+params.api_key = ''
 params.adapter_path = './'
 params.ncbi_genome = ''
 params.out = 'results/nextflow'
